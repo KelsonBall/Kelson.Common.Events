@@ -1,11 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>latest</LangVersion>
+    <Authors>Kelson Ball</Authors>
+    <Company>Kelson Software</Company>
+    <Description>Decoupled eventing library supporting Pub/Sub and Request/Response event patterns</Description>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/KelsonBall/Kelson.Common.Events</PackageProjectUrl>
+    <PackageIconUrl>https://avatars2.githubusercontent.com/u/7193540?s=460&amp;v=4</PackageIconUrl>
+    <RepositoryUrl>https://github.com/KelsonBall/Kelson.Common.Events</RepositoryUrl>
+    <PackageTags>events</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.1.1</Version>
   </PropertyGroup>
-
 </Project>
