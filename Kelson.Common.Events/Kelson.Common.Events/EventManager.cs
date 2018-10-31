@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Kelson.Common.Events
@@ -52,5 +53,19 @@ namespace Kelson.Common.Events
 
         public async Task<IEnumerable<TResponse>> RequestAsync<TRequest, TResponse>(TRequest request)
             => await Task.Run(() => Request<TRequest, TResponse>(request));
+
+        public ISubscription Provide<TType>(Func<TType> requestHandler)
+        {
+            return requests.Subscribe<TType, TType>(_ => requestHandler());
+        }
+
+        public TItem Request<TItem>()
+        {
+            var handlers = requests[typeof(TItem), typeof(TItem)];
+            if (!handlers.Any())
+                throw new KeyNotFoundException($"Could not find resource provider for type {typeof(TItem)}");
+            else
+                return handlers.First().Query<TItem, TItem>(default).response;
+        }
     }
 }

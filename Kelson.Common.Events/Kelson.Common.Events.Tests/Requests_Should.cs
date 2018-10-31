@@ -74,5 +74,18 @@ namespace Kelson.Common.Events.Tests
             events.Request<int, string>(127).Single().Should().Be("7f");
             events.Request<string, string>("hello").Single().Should().Be("hellohello");
         }
+
+        [Fact]
+        public void HandleItemRequests()
+        {
+            var events = new EventManager();
+            int i = 0;
+            events.Provide<int>(() => i++);
+            events.Provide<(string, string)>(() => ("Hello", "World"));
+
+            events.Request<int>().Should().Be(0);
+            events.Request<int>().Should().Be(1);
+            events.Request<(string, string)>().Should().BeEquivalentTo(("Hello", "World"));
+        }        
     }
 }

@@ -64,6 +64,30 @@ namespace Kelson.Common.Events.Tests
             value.Should().Be(int.MaxValue); // check for last value before subscription token went out of scope
         }
 
+        class ListenerObject
+        {
+            public ListenerObject(IEventManager events, Action<int> set) => events.Listen<int>(v => set(v + 1));
+        }
+
+        [Fact]
+        public void StopListeningWhenObjectGarbageCollected()
+        {
+            int value = 0;
+            var events = new EventManager();
+
+            var listener = new ListenerObject(events, v => value = v);
+
+            events.Publish(2);
+            value.Should().Be(3);
+
+            listener = null;
+
+            GC.Collect();
+
+            events.Publish(-1);
+            value.Should().Be(3);
+        }
+
         [Fact]
         public void StaySubscribedWhenTokenGarbageCollected()
         {

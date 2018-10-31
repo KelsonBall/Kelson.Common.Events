@@ -36,6 +36,10 @@ namespace Kelson.Common.Events
         /// </summary>
         void Publish<TEvent, TPayload>(TPayload payload) where TEvent : Event<TPayload>;
 
+        ISubscription Provide<TType>(Func<TType> requestHandler);
+
+        TItem Request<TItem>();
+
         /// <summary>
         /// Routes requests for TRequest to requestHandler
         /// </summary>
